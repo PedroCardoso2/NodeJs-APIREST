@@ -1,4 +1,7 @@
-import http from "http";
+// import http from "http";
+import app from "./src/app.js";
+
+
 
 const rotas = {
     "/": "Curso de Express.API",
@@ -8,12 +11,14 @@ const rotas = {
 
 
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, {"Content-Type": "text/plain"});
-    res.end(rotas[req.url])
-});
+//const server = http.createServer((req, res) => {
+//    res.writeHead(200, {"Content-Type": "text/plain"});
+//    res.end(rotas[req.url])
+//});
 
 
-server.listen(3000, () => {
+
+
+app.listen(3000, () => {
     console.log("Servidor escutando")
 })
