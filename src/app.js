@@ -5,48 +5,63 @@ const app = express();
 app.use(express.json());
 
 const livros = [
-    {
-        id: 1,
-        titulo: "O senhor dos anéis"
-    },
-    {
-        id: 2,
-        titulo: "O hobbit"
-    }
-]
+  {
+    id: 1,
+    titulo: "O senhor dos anéis",
+  },
+  {
+    id: 2,
+    titulo: "O hobbit",
+  },
+];
 
-function buscaLivro(id){
-    return livros.findIndex(livros => {
-        return livros.id === Number(id);
-    })
+function buscaLivro(id) {
+  return livros.findIndex((livros) => {
+    return livros.id === Number(id);
+  });
 }
 
 
-app.get("/", (req,res) => {
-    res.status(200).send("Curso Node.js"); 
+app.get("/", (req, res) => {
+  res.status(200).send("Curso Node.js");
 });
 
+
+// MOSTRAR TODOS LIVROS
 app.get("/livros", (req, res) => {
-    res.status(200).json(livros);
+  res.status(200).json(livros);
 });
 
+// MOSTRAR REGISTRO ÚNICO
 app.get("/livros/:id", (req, res) => {
-    const index = buscaLivro(req.params.id);
+  const index = buscaLivro(req.params.id);
 
-    res.status(200).json(livros[index]);
-})
-
-
-app.post("/livros", (req,res) => {
-    livros.push(req.body);
-    res.status(201).send("Livro Cadastrado com Sucesso");
+  res.status(200).json(livros[index]);
 });
 
-app.put("/livros/:id", (req,res) => {
-    const index = buscaLivro(req.params.id);
-    livros[index].titulo = req.body.titulo;
 
-    res.status(200).json(livros[index]);
-})
+// ADICIONAR LIVRO
+app.post("/livros", (req, res) => {
+  livros.push(req.body);
+  res.status(201).send("Livro Cadastrado com Sucesso");
+});
+
+
+// ATUALIZAR LIVRO
+app.put("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  livros[index].titulo = req.body.titulo;
+
+  res.status(200).json(livros[index]);
+});
+
+
+// DELETAR LIVRO
+app.delete("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  livros.splice(index, 1);
+
+  res.status(204).send("Deletado");
+});
 
 export default app;
