@@ -47,7 +47,7 @@ app.post("/livros", (req, res) => {
 });
 
 
-// ATUALIZAR LIVRO
+// ATUALIZAR LIVRO --> PATCH
 app.put("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   livros[index].titulo = req.body.titulo;
@@ -63,5 +63,7 @@ app.delete("/livros/:id", (req, res) => {
 
   res.status(204).send("Deletado");
 });
+
+
 
 export default app;
