@@ -1,5 +1,6 @@
 import express from "express";
 import connectDataBase from "./config/dbConnection.js";
+import livro from "./models/Livros.js";
 
 const conexao = await connectDataBase();
 
@@ -15,22 +16,6 @@ const app = express();
 // Conversão para JSON
 app.use(express.json());
 
-const livros = [
-  {
-    id: 1,
-    titulo: "O senhor dos anéis",
-  },
-  {
-    id: 2,
-    titulo: "O hobbit",
-  },
-];
-
-function buscaLivro(id) {
-  return livros.findIndex((livros) => {
-    return livros.id === Number(id);
-  });
-}
 
 
 app.get("/", (req, res) => {
@@ -39,9 +24,13 @@ app.get("/", (req, res) => {
 
 
 // MOSTRAR TODOS LIVROS
-app.get("/livros", (req, res) => {
-  res.status(200).json(livros);
+app.get("/livros", async (req, res) => {
+  const listaLivros = await livro.find({});
+  res.status(200).json(listaLivros);
 });
+
+
+
 
 // MOSTRAR REGISTRO ÚNICO
 app.get("/livros/:id", (req, res) => {
