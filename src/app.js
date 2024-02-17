@@ -1,4 +1,15 @@
 import express from "express";
+import connectDataBase from "./config/dbConnection.js";
+
+const conexao = await connectDataBase();
+
+conexao.on("Error", error => {
+  console.error("erro de conexão", error)
+});
+
+conexao.once("open" , () => {
+  console.log("Conexão com o Banco de Dados MongoDb")
+});
 
 const app = express();
 // Conversão para JSON
@@ -67,3 +78,6 @@ app.delete("/livros/:id", (req, res) => {
 
 
 export default app;
+
+
+
