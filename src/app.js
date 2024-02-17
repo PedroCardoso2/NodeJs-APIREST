@@ -23,11 +23,8 @@ app.get("/", (req, res) => {
 });
 
 
-// MOSTRAR TODOS LIVROS
-app.get("/livros", async (req, res) => {
-  const listaLivros = await livro.find({});
-  res.status(200).json(listaLivros);
-});
+
+
 
 
 
