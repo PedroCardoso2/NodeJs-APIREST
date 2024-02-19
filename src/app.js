@@ -1,6 +1,6 @@
 import express from "express";
 import connectDataBase from "./config/dbConnection.js";
-import livro from "./models/Livros.js";
+import routes from "./routes/index.js";
 
 const conexao = await connectDataBase();
 
@@ -13,18 +13,8 @@ conexao.once("open" , () => {
 });
 
 const app = express();
-// Conversão para JSON
-app.use(express.json());
 
-
-
-app.get("/", (req, res) => {
-  res.status(200).send("Curso Node.js");
-});
-
-
-
-
+routes(app);
 
 
 
