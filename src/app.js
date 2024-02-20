@@ -1,59 +1,24 @@
 import express from "express";
-import connectDataBase from "./config/dbConnection.js";
+import conectaNaDatabase from "./config/dbConnect.js";
 import routes from "./routes/index.js";
 
-const conexao = await connectDataBase();
+const conexao = await conectaNaDatabase();
 
-conexao.on("Error", error => {
-  console.error("erro de conexão", error)
+conexao.on("error", (erro) => {
+  console.error("erro de conexão", erro);
 });
 
-conexao.once("open" , () => {
-  console.log("Conexão com o Banco de Dados MongoDb")
-});
+conexao.once("open", () => {
+  console.log("Conexao com o banco feita com sucesso");
+})
 
 const app = express();
-
 routes(app);
 
-
-
-
-// MOSTRAR REGISTRO ÚNICO
-app.get("/livros/:id", (req, res) => {
-  const index = buscaLivro(req.params.id);
-
-  res.status(200).json(livros[index]);
-});
-
-
-// ADICIONAR LIVRO
-app.post("/livros", (req, res) => {
-  livros.push(req.body);
-  res.status(201).send("Livro Cadastrado com Sucesso");
-});
-
-
-// ATUALIZAR LIVRO --> PATCH
-app.put("/livros/:id", (req, res) => {
-  const index = buscaLivro(req.params.id);
-  livros[index].titulo = req.body.titulo;
-
-  res.status(200).json(livros[index]);
-});
-
-
-// DELETAR LIVRO
 app.delete("/livros/:id", (req, res) => {
   const index = buscaLivro(req.params.id);
   livros.splice(index, 1);
-
-  res.status(204).send("Deletado");
+  res.status(200).send("livro removido com sucesso");
 });
 
-
-
 export default app;
-
-
-
