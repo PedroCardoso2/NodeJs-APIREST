@@ -1,5 +1,5 @@
 
-import { autor } from "../models/Autor";
+import { autor } from "../models/Autor.js";
 
 class AutorController {
 
@@ -28,11 +28,11 @@ class AutorController {
   static async cadastrarAutor (req, res) {
     try {
       const novoAutor = await autor.create(req.body);
-      res.status(201).json({ message: "criado com sucesso", autor: novoAutor });
+      res.status(201).json({ message: "criado com sucesso", livro: novoAutor });
     } catch (erro) {
       res.status(500).json({ message: `${erro.message} - falha ao cadastrar autor` });
     }
-  }
+  };
 
   // Atualizar Autor
   static async atualizarAutor (req, res) {
