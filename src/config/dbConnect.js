@@ -1,8 +1,8 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, { connection } from "mongoose";
 
-async function conectaNaDatabase() {
+const dbConnection =  async () => {
   mongoose.connect(process.env.DB_CONNECTION_STRING);
   return mongoose.connection;
-};
+}
 
-export default conectaNaDatabase;
+export default dbConnection;
