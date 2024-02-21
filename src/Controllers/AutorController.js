@@ -20,8 +20,8 @@ class AutorController {
       const livroAutorEncontrado = await autor.findById(id);
       res.status(200).json(livroAutorEncontrado);
     } catch (erro) {
-      res.status(500).json({ message: `${erro.message} - falha na requisição do livro` });
-    }
+      res.status(500).json({ message: `${erro.message} - falha na requisição do Autor` });
+    } 
   };
 
   // Cadastro Autor
